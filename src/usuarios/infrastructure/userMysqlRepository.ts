@@ -127,7 +127,7 @@ async listAllUsers(): Promise<User[] | any> {
 
 async getUserById(id: number): Promise<User | null> {
   try {
-    const sql = "SELECT userid, nombre, correo, altura, peso, gender FROM usuario WHERE userid = ? LIMIT 1";
+    const sql = "SELECT * FROM usuario WHERE userid = ? LIMIT 1";
     const [rows]: any = await query(sql, [id]);
 
     // Verificar si no se encontraron resultados o si la respuesta es vacía
@@ -151,7 +151,7 @@ async getUserById(id: number): Promise<User | null> {
     );
 
     
-    return userData;
+    return row;
   } catch (error) {
     console.error("Error en getUserById:", error);
     return null;

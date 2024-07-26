@@ -20,7 +20,7 @@ userRouter.put('/setinactive', validateToken,setAsInactiveController.run.bind(se
 userRouter.get("/list", listAllUserController.run.bind(listAllUserController));
 
 // Ruta para obtener un usuario por su ID
-userRouter.get("/:id", validateToken,getUserByIdController.run.bind(getUserByIdController));
+userRouter.get("/:id", getUserByIdController.run.bind(getUserByIdController)); 
 
 // Ruta para eliminar un usuario por su ID
 userRouter.delete("/:id", validateToken,deleteUserByIdController.run.bind(deleteUserByIdController));

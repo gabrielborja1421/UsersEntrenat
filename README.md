@@ -45,4 +45,3 @@ npm run dev
 
 # Documentation
 https://documenter.getpostman.com/view/21290432/2s9YeK3A8D
-# UsersEntrenat
