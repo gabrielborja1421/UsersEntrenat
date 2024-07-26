@@ -9,29 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginUseCase = void 0;
-const user_1 = require("../domain/validation/user");
-const class_validator_1 = require("class-validator");
-class LoginUseCase {
-    constructor(usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+exports.UpdateUserUC = void 0;
+class UpdateUserUC {
+    constructor(userRepository) {
+        this.userRepository = userRepository;
     }
-    run(email, password) {
+    run(id, configParams) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Puedes eliminar el código de validación con class-validator
-            let post = new user_1.ValidateLogin(email, password);
-            const validation = yield (0, class_validator_1.validate)(post);
-            if (validation.length > 0) {
-                throw new Error(JSON.stringify(validation));
-            }
             try {
-                const loginUser = yield this.usuarioRepository.loginUser(email, password);
-                return loginUser;
+                const updatedUser = yield this.userRepository.updateUser(id, configParams);
+                console.log("caso de uso");
+                console.log(id, configParams);
+                console.log('caso de uso datos:' + updatedUser);
+                return updatedUser;
             }
             catch (error) {
+                console.error('Error updating user config:', error);
                 return null;
             }
         });
     }
 }
-exports.LoginUseCase = LoginUseCase;
+exports.UpdateUserUC = UpdateUserUC;

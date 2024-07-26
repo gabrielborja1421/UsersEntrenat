@@ -9,29 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginUseCase = void 0;
-const user_1 = require("../domain/validation/user");
-const class_validator_1 = require("class-validator");
-class LoginUseCase {
-    constructor(usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+exports.RegisterUserConfigUseCase = void 0;
+class RegisterUserConfigUseCase {
+    constructor(userRepository) {
+        this.userRepository = userRepository;
     }
-    run(email, password) {
+    run(userID, canName, canDescription, canAge, canWeight, canHeight, canSex, canEmail, canProfile, canGym, isPremium) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Puedes eliminar el código de validación con class-validator
-            let post = new user_1.ValidateLogin(email, password);
-            const validation = yield (0, class_validator_1.validate)(post);
-            if (validation.length > 0) {
-                throw new Error(JSON.stringify(validation));
-            }
             try {
-                const loginUser = yield this.usuarioRepository.loginUser(email, password);
-                return loginUser;
+                const createNewUserConfig = yield this.userRepository.CreateUserConfig(userID, canName, canDescription, canAge, canWeight, canHeight, canSex, canEmail, canProfile, canGym, isPremium);
+                return createNewUserConfig;
             }
             catch (error) {
+                console.error("Error al registrar configuración de usuario:", error);
                 return null;
             }
         });
     }
 }
-exports.LoginUseCase = LoginUseCase;
+exports.RegisterUserConfigUseCase = RegisterUserConfigUseCase;

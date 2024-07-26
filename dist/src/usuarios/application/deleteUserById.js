@@ -23,21 +23,16 @@ class DeleteUserUseCase {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 // Llama al método de repositorio para eliminar el usuario por su UUID.
-                const deleteUser = yield this.userRepository.deleteUserById(id);
-                if (deleteUser) {
-                    // Si el usuario se eliminó correctamente, devuelve un mensaje de éxito.
-                    return "Usuario eliminado correctamente." + "id: " + id;
-                }
-                else {
-                    // Si el usuario no se encontró o no se pudo eliminar, devuelve un mensaje de error.
-                    return "No se pudo eliminar el usuario.";
-                }
+                yield this.userRepository.deleteUserById(id);
             }
             catch (error) {
                 // Maneja el error y registra un mensaje de error en la consola.
                 console.error("Error al eliminar el usuario:", error);
                 // Devuelve null para indicar un error.
-                return null;
+                throw ({
+                    error: error,
+                    exception: error.message
+                });
             }
         });
     }

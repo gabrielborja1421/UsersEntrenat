@@ -14,16 +14,15 @@ class ListAllUserController {
     constructor(listAllUserUseCase) {
         this.listAllUserUseCase = listAllUserUseCase;
     }
-    run(_req, res) {
+    run(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const listAllUser = yield this.listAllUserUseCase.run();
+                console.log(listAllUser);
                 if (listAllUser && listAllUser.length > 0) {
                     return res.status(200).send({
                         status: "success",
-                        data: {
-                            users: listAllUser, // Cambié la clave a "users" para reflejar que estamos enviando una lista de usuarios
-                        },
+                        data: listAllUser,
                     });
                 }
                 else {

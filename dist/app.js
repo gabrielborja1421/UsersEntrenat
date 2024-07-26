@@ -6,11 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const signale_1 = require("signale");
 const userRoutes_1 = require("./src/usuarios/infrastructure/userRoutes");
+const body_parser_1 = __importDefault(require("body-parser"));
 const app = (0, express_1.default)();
 const signale = new signale_1.Signale();
 app.use(express_1.default.json());
+app.use(body_parser_1.default.json()); // Si usas body-parser
 // Rutas relacionadas con usuarios
 app.use(userRoutes_1.userRouter);
-app.listen(8080, () => {
-    signale.success("Server online in port 8080");
+const PORT = 8081;
+const HOST = '0.0.0.0'; // Escuchar en todas las interfaces de red
+app.listen(PORT, HOST, () => {
+    signale.success(`Server online on port ${PORT}`);
 });

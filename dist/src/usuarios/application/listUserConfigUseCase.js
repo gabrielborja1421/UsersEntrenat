@@ -9,29 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginUseCase = void 0;
-const user_1 = require("../domain/validation/user");
-const class_validator_1 = require("class-validator");
-class LoginUseCase {
-    constructor(usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+exports.GetUserConfigByIdUseCase = void 0;
+class GetUserConfigByIdUseCase {
+    constructor(userRepository) {
+        this.userRepository = userRepository;
     }
-    run(email, password) {
+    run(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Puedes eliminar el código de validación con class-validator
-            let post = new user_1.ValidateLogin(email, password);
-            const validation = yield (0, class_validator_1.validate)(post);
-            if (validation.length > 0) {
-                throw new Error(JSON.stringify(validation));
-            }
             try {
-                const loginUser = yield this.usuarioRepository.loginUser(email, password);
-                return loginUser;
+                // Intenta obtener el usuario por su ID
+                const getUserById = yield this.userRepository.getUserConfigById(id);
+                if (getUserById === null) {
+                    // Si no se encontró ningún usuario, lanza una excepción personalizada
+                    throw new Error("El usuario no existe"); // Puedes personalizar el mensaje de error
+                }
+                return getUserById;
             }
             catch (error) {
-                return null;
+                // Captura y registra el error
+                console.error("Error en GetUserByIdUseCase:", error);
+                // Lanza la excepción para que pueda ser manejada en capas superiores si es necesario
+                throw error;
             }
         });
     }
 }
-exports.LoginUseCase = LoginUseCase;
+exports.GetUserConfigByIdUseCase = GetUserConfigByIdUseCase;

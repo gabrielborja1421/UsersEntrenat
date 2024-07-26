@@ -12,7 +12,7 @@ app.use(bodyParser.json()); // Si usas body-parser
 // Rutas relacionadas con usuarios
 app.use(userRouter);
 
-const PORT = 8082;
+const PORT = 8081;
 const HOST = '0.0.0.0';  // Escuchar en todas las interfaces de red
 
 app.listen(PORT, HOST, () => {

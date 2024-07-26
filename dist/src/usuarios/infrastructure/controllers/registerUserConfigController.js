@@ -9,38 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegisterController = void 0;
-class RegisterController {
+exports.RegisterUserConfigController = void 0;
+class RegisterUserConfigController {
     constructor(registerUseCase) {
         this.registerUseCase = registerUseCase;
     }
     run(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                // Verifica que req.body no esté vacío y contenga las propiedades necesarias
-                if (!req.body || !req.body.name || !req.body.email || !req.body.password) {
-                    return res.status(400).send({
-                        status: "error",
-                        message: "Datos incompletos",
-                    });
-                }
-                const { name, email, nickname, password, height, weight, sex, } = req.body;
+                const { userID, canName = false, canDescription = false, canAge = false, canWeight = false, canHeight = false, canSex = false, canEmail = false, canProfile = false, canGym = false, isPremium = false } = req.body;
                 // Continua con el registro
-                const registerUser = yield this.registerUseCase.run(name, email, nickname, password, height, weight, sex);
+                const registerUser = yield this.registerUseCase.run(userID, canName, canDescription, canAge, canWeight, canHeight, canSex, canEmail, canProfile, canGym, isPremium);
                 if (registerUser) {
                     return res.status(201).send({
                         status: "success",
-                        data: {
-                            id: registerUser.id,
-                            name: registerUser.name,
-                            email: registerUser.email,
-                        },
+                        registerUser
                     });
                 }
                 else {
                     return res.status(400).send({
                         status: "error",
-                        message: "Ya está registrado este correo.",
+                        message: "Error.",
                     });
                 }
             }
@@ -54,4 +43,4 @@ class RegisterController {
         });
     }
 }
-exports.RegisterController = RegisterController;
+exports.RegisterUserConfigController = RegisterUserConfigController;

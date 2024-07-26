@@ -24,21 +24,10 @@ class DeleteUserController {
                         message: "Se requiere un ID válido en la solicitud.",
                     });
                 }
-                const userDeleted = yield this.deleteUserUseCase.run(id);
-                if (userDeleted) {
-                    return res.status(200).send({
-                        status: "success",
-                        data: {
-                            eliminated: userDeleted + "el usuario con la id:" + id + "se le dió cuello",
-                        },
-                    });
-                }
-                else {
-                    return res.status(404).send({
-                        status: "error",
-                        message: "Error al eliminar el usuario",
-                    });
-                }
+                yield this.deleteUserUseCase.run(id);
+                res.status(204).json({
+                    message: "Usuario eliminado correctamente"
+                });
             }
             catch (error) {
                 console.error("Error al eliminar el usuario:", error);

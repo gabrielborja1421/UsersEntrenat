@@ -20,31 +20,28 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateUserController = void 0;
-class UpdateUserController {
-    constructor(updateUser) {
-        this.updateUser = updateUser;
+exports.UpdateUserConfigController = void 0;
+class UpdateUserConfigController {
+    constructor(updateUserConfig) {
+        this.updateUserConfig = updateUserConfig;
     }
     run(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const _a = req.body, { id } = _a, configParams = __rest(_a, ["id"]);
-                console.log(id, configParams);
-                let updateUserConfig = yield this.updateUser.run(id, configParams);
-                console.log("controlador");
+                let updateUserConfig = yield this.updateUserConfig.run(id, configParams);
                 if (updateUserConfig) {
                     return res.status(200).send({
                         status: "success",
                         data: {
                             message: `User config with id ${id} updated successfully.`,
-                            user: updateUserConfig,
                         },
                     });
                 }
                 else {
                     return res.status(404).send({
                         status: "error",
-                        message: "No user found with that id----.",
+                        message: "No user found with that id.",
                     });
                 }
             }
@@ -57,4 +54,4 @@ class UpdateUserController {
         });
     }
 }
-exports.UpdateUserController = UpdateUserController;
+exports.UpdateUserConfigController = UpdateUserConfigController;
